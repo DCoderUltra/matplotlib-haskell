@@ -241,6 +241,14 @@ dataPlot a b = mp # "p = ax.plot(data[" # a # "], data[" # b # "]" ## ")"
 plot :: (ToJSON t, ToJSON t1) => t1 -> t -> Matplotlib
 plot x y = readData (x, y) % dataPlot 0 1
 
+-- | Stemplot the 'a' and 'b' entries of the data object
+dataStem :: (MplotValue val, MplotValue val1) => val1 -> val -> Matplotlib
+dataStem a b = mp # "p = ax.stem(data[" # a # "], data[" # b # "]" ## ")"
+
+-- | Stemplot the Haskell objects 'x' and 'y'
+stem :: (ToJSON t, ToJSON t1) => t1 -> t -> Matplotlib
+stem x y = readData (x, y) % dataStem 0 1
+
 streamplot x y u v = readData (x, y, u, v)
   % mp # "ax.streamplot(np.asarray(data[0]), np.asarray(data[1]), np.asarray(data[2]), np.asarray(data[3])" ## ")"
 
